@@ -1,0 +1,17 @@
+
+    <hr>
+    <div class="row my_box justify-content-between mb-4 mt-4" style="color: #ffffff;">
+        <div class="col">
+            UŽIVATEL: {{ user }}
+        </div>
+    
+        <div class="col d-flex justify-content-end">
+            <div class="tlt">
+                <p class="tlt-text" style="color:#b30000;">ODHLÁSIT</p>
+                <a href="{% url 'sprava:logout' %}">
+                    <i class="bi bi-box-arrow-right Heading" style="color:#b30000; font-size: 1.5rem"></i>
+                </a>
+            </div>
+        
+        </div>
+    </div>

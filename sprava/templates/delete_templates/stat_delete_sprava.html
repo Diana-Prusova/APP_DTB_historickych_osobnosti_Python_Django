@@ -1,0 +1,86 @@
+{% extends 'base_sprava.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+
+    <div class="row d-flex justify-content-sm-between mb-1">
+        <div class="col-12 col-sm-8">
+            <p class="fs-3 d-flex align-items-center mb-0"> STÁT - smazání záznamu </p>
+        </div>
+
+        <div class="col-12 col-sm-4 d-flex justify-content-sm-between ">
+            <a class="my_bt" style="margin-bottom: 9px;" href="{% url 'sprava:download-data' %}?model=staty&id={{object.pk}}">ULOŽIT&nbsp;DATA</a>
+
+            <form action="." method="POST"> {% csrf_token %}
+                <input class="my_input_alert" type="submit" value="TRVALE SMAZAT">
+            </form>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row fw-bold">
+        <div class="col-4 col-md-2">
+            ZÁZNAM:
+        </div>
+        <div class="col-8 col-md-10">
+            {{ object.admin_string }}
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row text-danger">
+        <div class="col">
+            OPRAVDU CHCEŠ TENTO ZÁZNAM SMAZAT?
+        </div>
+    </div>
+
+    <div class="row fw-lighter mt-2">
+        <div class="col">
+            Záznam je navázán na tabulky BOJOVNICE a SKUPINY BOJOVNIC.<br>Po smazání bude potřeba aktualizovat tyto záznamy databáze:
+        </div>
+    </div>
+
+    <div class="row fw-lighter mt-2">
+        <div class="col">
+            BOJOVNICE:
+        </div>
+    </div>
+
+    {% if object.bojovnice_set.count == 0 %}
+        <div class="row fw-lighter mt-2 ms-4">
+            - Ke státu nejsou přiřazeny žádné bojovnice.
+        </div>
+    {% else %}
+        {% for each in object.bojovnice_set.all %}
+            <div class="row fw-lighter mt-1">
+                <div class="col ms-4">
+                    <a class="link-underline-light" href="{% url 'sprava:bojovnice-admin-detail' each.pk %}">{{ each.admin_string }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row fw-lighter mt-2">
+        <div class="col">
+            SKUPINY BOJOVNIC:
+        </div>
+    </div>
+
+    {% if object.skupinybojovnic_set.count == 0 %}
+        <div class="row fw-lighter mt-2 ms-4">
+            - Ke státu nejsou přiřazeny žádné skupiny bojovnic.
+        </div>
+    {% else %}
+        {% for each in object.skupinybojovnic_set.all %}
+            <div class="row fw-lighter mt-2">
+                <div class="col ms-4">
+                    <a class="link-underline-light" href="{% url 'sprava:skupiny-bojovnic-admin-detail' each.pk %}">{{ each.admin_string }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+{% endblock %}

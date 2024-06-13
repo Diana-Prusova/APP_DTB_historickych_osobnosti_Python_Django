@@ -1,0 +1,70 @@
+{% extends 'base_bojovnice_app.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+<div class="d-flex justify-content-center">
+<div class="my_max_w">
+
+    <div class="row mb-4">
+        <div class="col fs-3 text-center">
+            {{ object.jmeno }}
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-12 col-md-3 fw-bolder">
+            STOLETÍ:
+        </div>
+        <div class="col">
+            {{ object.stoleti_string }}
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-12 col-md-3 fw-bolder">
+            STÁTY:
+        </div>
+        <div class="col">
+            {{ object.staty_string }}
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12 fw-bolder">
+            POPIS:
+        </div>
+        <div class="row mt-2">
+            <p class="">
+            {{ object.popis }}
+        </p>
+        </div>
+    </div>
+
+    {% if object.bojovnice_set.count != 0 %}
+        <div class="row mt-2">
+            <div class="col-12 fw-bolder">
+                BOJOVNICE:
+            </div>
+            <div class="row mt-2 mb-4">
+                {% for each in object.bojovnice.all %}
+                    <div class="row mb-1">
+                        <a class="my_link" href="{% url 'one_detail_bojovnice_app' each.pk %}">{{ each }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row d-flex justify-content-center my-2">
+        <div class="col-12 col-md-4 p-2 text-center">
+            <a href="javascript:window.history.back()" class="my_bt">ZPĚT&nbsp;NA&nbsp;SEZNAM</a>
+        </div>
+        <div class="col-12 col-md-4 p-2 text-center">
+            <a href="{% url 'index_bojovnice_app' %}" class="my_bt">ÚVODNÍ&nbsp;STRÁNKA</a>
+        </div>
+    </div>
+    
+</div>
+</div>
+<hr>
+{% endblock %}

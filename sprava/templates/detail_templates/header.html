@@ -1,0 +1,16 @@
+<div class="row d-flex justify-content-sm-between mb-1">
+    <div class="col-12 col-sm-6">
+        <p class="fs-3 d-flex align-items-center mb-0"> {{ title_page }} </p>
+    </div>
+
+    <div class="col-12 col-sm-6 d-flex justify-content-sm-end ">
+        <a class="my_bt mx-1 d-flex align-items-center" href="{{ object.get_absolute_url_update }}">UPRAVIT</a>
+
+        <a class="my_bt_alert mx-1 d-flex align-items-center" href="{{ object.get_absolute_url_delete }}">SMAZAT</a>
+
+        <a class="my_bt mx-1 d-flex align-items-center" href="{{back_to_list_url}}">SEZNAM</a>
+    </div>
+
+</div>
+
+<hr>

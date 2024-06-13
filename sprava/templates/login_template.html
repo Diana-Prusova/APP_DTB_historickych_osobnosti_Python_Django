@@ -1,0 +1,31 @@
+{% extends 'base_sprava.html' %}
+{% load bootstrap5 %}
+{% block bootstrap5_title %}login uživatele{% endblock %}
+
+{% block title %}SPRÁVA APLIKACE - PŘÍHLÁŠENÍ{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center mt-5">
+    <div style="max-width: 500px;">
+
+        <div class="row mb-3">
+            <div class="col">
+                <p class="fs-3 text-center mb-0"> PŘIHLÁŠENÍ DO SPRÁVY DATABÁZE </p>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col">
+                <form action="." method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input class="my_bt" type="submit" name="button_login" value="PŘIHLÁSIT"/>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

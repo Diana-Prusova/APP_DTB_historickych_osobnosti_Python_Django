@@ -1,0 +1,220 @@
+
+/* ----- NAVIGAČNÍ MENU ----- */
+@media screen and (min-width: 992px) {
+    .navbar .container-fluid, .navbar-expand-lg .navbar_collapsa, .navbar-expand-lg .navbar-nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .navbar {
+        width: 25%;
+        align-items: flex-start;
+    }
+    .navbar-brand {
+        margin-top: 2rem;
+        margin-left: .5rem;
+        font-size: 1.5rem;
+    }
+}
+@media screen and (max-width: 992px) {
+    .navbar-brand {
+        display: none;
+    }
+}
+.navbar-dark .navbar-toggler {
+    color: #ffffff1f;
+
+}
+
+/* ----- FORMULÁŘE ----- */
+.form-control:focus {
+    border-color: #ffffff;
+    box-shadow: 1px 0px 5px 1px rgba(0,136,136,0.87);
+
+  }
+select option:hover
+{
+    background: linear-gradient(#ffffff,#ffffff);
+    background-color: #ffffff !important; /* for IE */
+    border: solid 1px #008888;
+    border-radius: 3px;
+}
+select option:focus, 
+select option:active, 
+select option:checked
+{
+    background: linear-gradient(#008888,#008888);
+    background-color: #008888 !important; /* for IE */
+    border-radius: 3px;
+    color: #ffffff;
+
+}
+
+/* ----- TLAČÍTKA ----- */
+.my_bt{
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #008888;
+    border: #008888 1px solid;
+    align-content: center;
+    padding: .250rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+}
+.my_bt:hover {
+    background-color: #007272;
+    border: #007272 1px solid;
+    text-decoration: none;
+    color: #ffffff;
+}
+.my_bt_header{
+    padding: .550rem 3rem;
+}
+@media screen and (max-width: 700px) {
+    .my_bt_header {
+        padding: .550rem .75rem;
+    }
+}
+@media screen and (max-width: 400px) {
+    .my_bt {
+        font-size: 0.9rem;
+    }
+}
+
+.my_bt_alert {
+    text-decoration: none;
+    color: #fdfdfd;
+    background-color: #DC3545;
+    border: #DC3545 1px solid;
+    padding: .250rem .75rem;
+    font-size: 0.95rem;
+    border-radius: .25rem;
+}
+.my_bt_alert:hover {
+    background-color: #b32332;
+    border: #b32332 1px solid;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.my_input_alert {
+    text-decoration: none;
+    color: #fdfdfd;
+    background-color: #DC3545;
+    border: #DC3545 1px solid;
+    padding: .250rem .75rem;
+    font-size: 0.95rem;
+    border-radius: .25rem;
+}
+.my_input_alert:hover {
+    background-color: #b32332;
+    border: #b32332 1px solid;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+/* ----- ODKAZY ----- */
+.my_link {
+    text-decoration: none;
+    color: #008888;
+}
+.my_link:hover {
+    text-decoration: underline;
+    color: #008888;
+}
+
+/* ----- TOOLTIPY ----- */
+.tlt {
+    position: relative; /* Rodičovský prvek bude mít relativní pozici */
+}
+
+.tlt p {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 0px;
+    right: 130%;
+    font-size: 0.95rem;
+    padding: 3px 7px; 
+    transition: visibility 0s, opacity 0.3s; 
+    white-space: nowrap; 
+}
+
+.tlt:hover p {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tlt_border {
+    border-radius: 5px;
+    color: #6b6b6b;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 5px #00000049;
+}
+
+/* ----- TEXTY ----- */
+.my_color_text {
+    color: #008888;
+}
+
+.my_form_title {
+    font-size: 1.35rem;
+}
+@media screen and (max-width: 400px) {
+    .my_form_title {
+        font-size: 1rem;
+    }
+}
+
+.my_footer_text {
+    font-size: 1.4rem;
+}
+@media screen and (max-width: 500px) {
+    .my_footer_text {
+        font-size: 1.1rem;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    .my_text_center {
+        text-align: center;
+    }
+}
+
+
+
+/* ----- ÚVODNÍ IMG ----- */
+.my_logo_index {
+    max-width: 50%;
+}
+@media screen and (max-width: 800px) {
+    .my_logo_index {
+        max-width: 60vw;
+    }
+}
+@media screen and (max-width: 550px) {
+    .my_logo_index {
+        max-width: 80vw;
+    }
+}
+
+/* ----- MAX WIDTH----- */
+.my_max_w {
+    max-width: 75%;
+}
+@media screen and (max-width: 400px) {
+    .my_max_w {
+        max-width: 90%;
+    }
+}
+
+/* ----- CELÝ KONTENT SPRÁVA ----- */
+.my_box {
+    margin: 1rem;
+}
+
+.search_box {
+    border: #007272 1px solid;
+    border-radius: 5px;
+    padding: 35px 20px;
+    border-radius: 20px;
+}

@@ -1,0 +1,90 @@
+{% extends 'base_sprava.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+{% include "detail_templates/header.html" %}
+    <div class="row mt-2">
+        <div class="col-4 col-md-2">
+            ID:
+        </div>
+        <div class="col-8 col-md-10">
+            {{ object.pk }}
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-4 col-md-2">
+            JMÉNO:
+        </div>
+        <div class="col-8 col-md-10">
+            {{ object.jmeno }}
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-4 col-md-2">
+            VŠECHNA JMÉNA:
+        </div>
+        <div class="col-8 col-md-10">
+            {{ object.vsechna_jmena_string }}
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-4 col-md-2">
+            OBDOBÍ:
+        </div>
+        <div class="col-8 col-md-10">
+            {{ object.obdobi }}
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-4 col-md-2">
+            ÚZEMÍ:
+        </div>
+        <div class="col-8 col-md-10">
+            {{ object.uzemi }}
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-4 col-md-2">
+            STÁTY:
+        </div>
+        <div class="col-8 col-md-10">
+            {{ object.staty_string }}
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-4 col-md-2">
+            STOLETÍ:
+        </div>
+        <div class="col-8 col-md-10">
+            {{ object.stoleti_string }}
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-4 col-md-2">
+            POPIS:
+        </div>
+        <div class="col-8 col-md-10">
+            {{ object.popis }}
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            PŘÍBĚH:
+        </div>
+        <div class="row ms-4 pe-5">
+            {{ object.pribeh }}
+        </div>
+    </div>
+
+    <hr>
+
+  
+{% endblock %}

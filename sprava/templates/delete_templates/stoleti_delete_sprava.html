@@ -1,0 +1,72 @@
+{% extends 'base_sprava.html' %}
+{% load bootstrap5 %}
+
+{% block title %} STOLETÍ - smazání záznamu{% endblock %}
+
+{% block content %}
+
+    <div class="row d-flex justify-content-sm-between mb-1">
+        <div class="col-12 col-sm-8">
+            <p class="fs-3 d-flex align-items-center mb-0"> STOLETÍ - smazání záznamu </p>
+        </div>
+
+        <div class="col-12 col-sm-4 d-flex justify-content-sm-between ">
+            <a class="my_bt" style="margin-bottom: 9px;" href="{% url 'sprava:download-data' %}?model=stoleti&id={{object.pk}}">ULOŽIT&nbsp;DATA</a>
+
+            <form action="." method="POST"> {% csrf_token %}
+                <input class="my_input_alert" type="submit" value="TRVALE SMAZAT">
+            </form>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="row fw-bold">
+        <div class="col-4 col-md-2">
+            ZÁZNAM:
+        </div>
+        <div class="col-8 col-md-10">
+            {{ object.admin_string }}
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row text-danger">
+        <div class="col">
+            OPRAVDU CHCEŠ TENTO ZÁZNAM SMAZAT?
+        </div>
+    </div>
+
+    <div class="row fw-lighter mt-1">
+        <div class="col">
+            Tabulka století obsahuje kompletní data a jakékoliv zásahy do ní se důrazně nedoporučují.
+        </div>
+
+    </div>
+
+    <div class="row fw-lighter mt-1">
+        <div class="col">
+            Záznam je navíc navázán na tabulku BOJOVNICE. Po smazání bude potřeba aktualizovat tyto záznamy databáze:
+        </div>
+    </div>
+
+    {% if object.bojovnice_set.count == 0 %}
+        <div class="row fw-lighter mt-1">
+            <div class="col ms-2">
+                - Žádný záznam nebyl nalezen.
+            </div>
+        </div>
+
+    {% else %}
+        {% for each in object.bojovnice_set.all %}
+            <div class="row fw-lighter mt-1">
+                <div class="col ms-4">
+                    <a class="link-underline-light" href="{% url 'sprava:bojovnice-admin-detail' each.pk %}">BOJOVNICE: {{ each.admin_string }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

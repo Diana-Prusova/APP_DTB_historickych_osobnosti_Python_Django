@@ -1,0 +1,18 @@
+{% extends 'base_sprava.html' %}
+{% load bootstrap5 %}
+{% load static %}
+
+{% block title %}
+<div class="text-center text-secondary display-6">
+    SPRÁVA DATABÁZE BOJOVNIC
+</div>
+{% endblock %}
+
+{% block content %}
+    <div class="row ">
+        <div class="col d-flex justify-content-center">
+            <img class="img-fluid" src="{% static 'bojovnice_v_historii/img/bojovnice.jpg' %}" alt="uvodni_fotka_bojovnice">
+        </div>
+    </div>
+    
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base_bojovnice_app.html' %}
+{% load bootstrap5 %}
+
+{% block title %}
+<div class="text-secondary display-6">
+    DATABÁZE BOJOVNIC V HISTORII SVĚTA
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    Došlo k chybě. Zkuste to prosím znovu...
+</div>
+
+<div class="col-3">
+    <a class="my_bt" href="{% url 'index_bojovnice_app' %}">ZPĚT NA VYHLEDÁVÁNÍ</a>
+</div>
+
+{% endblock %}

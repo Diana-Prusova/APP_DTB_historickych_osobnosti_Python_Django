@@ -1,0 +1,20 @@
+{% extends 'base_base.html' %}
+
+{% block bootstrap5_title %}BOJOVNICE V HISTORII{% endblock %}
+
+{% load bootstrap5 %}
+
+{% block bootstrap5_content %}
+<div class="container-fluid">
+    <div class="mt-5 container-lg">
+    
+        {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+    
+        {% block content %}(no content){% endblock %}
+        
+    </div>
+</div>
+
+{% include 'footer_bojovnice_app.html' %}
+
+{% endblock %}

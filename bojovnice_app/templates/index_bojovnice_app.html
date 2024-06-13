@@ -1,0 +1,103 @@
+{% extends 'base_bojovnice_app.html' %}
+{% load bootstrap5 %}
+{% load static %}
+
+
+{% block content %}
+
+<header>
+    
+    <div class="row my-5">
+        <div class="col-12 text-center">
+            <img class="my_logo_index" src="{% static 'bojovnice_v_historii/img/bojovnice_v_historii_logo.jpg' %}" alt="Bojovnice v historii světa">
+        </div>
+    </div>
+
+    <!-- <hr class="mb-5"> -->
+    
+    <div class="row d-flex justify-content-between mb-5">
+        <div class="col-12 col-sm-6 text-center text-sm-end p-3">
+            <a class="my_bt my_bt_header"  href="{% url 'listing_bojovnice_app' %}">SEZNAM&nbsp;BOJOVNIC</a>
+        </div>
+    
+        <div class="col-12 col-sm-6 text-center text-sm-start p-3">
+            <a class="my_bt my_bt_header" href="{% url 'listing_skupiny_app' %}">SKUPINY&nbsp;BOJOVNIC</a>
+        </div>  
+    </div>
+</header>
+
+<main>
+
+    <hr>
+
+    <div class="row">
+        <div class="col text-center fs-2 my-4">
+            <p class="my_color_text">VYHLEDÁVÁNÍ:</p>
+        </div>
+    </div>
+    
+    <div class="row mb-2">
+        <div class="col-12 col-md-4 p-2">
+            <div class="search_box">
+                <form action="." method="POST">
+                    {% csrf_token %}
+    
+                    <label for="id_stat_nazev">
+                        <div class="my_color_text my_form_title mb-2">
+                                {{ search_by_stat_form.stat.label}}
+                        </div>
+                    </label>
+    
+                    {{ search_by_stat_form.stat}}
+    
+                    <div class="text-end">
+                        <input class="my_bt mt-2" type="submit" value="VYHLEDAT">
+                    </div>
+                </form>
+            </div>
+        </div>
+    
+        <div class="col-12 col-md-4 p-2">
+            <div class="search_box">
+                <form action="." method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="id_stoleti_nazev">
+                        <div class="my_color_text my_form_title mb-2">
+                            {{ search_by_stoleti_form.stoleti.label}}
+                        </div>
+                    </label>
+    
+                    {{ search_by_stoleti_form.stoleti }}
+    
+                    <div class="text-end">
+                        <input class="my_bt mt-2" type="submit" value="VYHLEDAT">
+                    </div>
+                </form>
+            </div>
+        </div>
+    
+        <div class="col-12 col-md-4 p-2">
+            <div class="search_box">
+                <form action="." method="POST">
+                    {% csrf_token %}
+    
+                    <label for="id_vsechnajmena_jmeno">
+                        <div class="my_color_text my_form_title mb-2">
+                            {{ search_by_vsechna_jmena_form.jmeno.label}}
+                        </div>
+                    </label>
+                    {{ search_by_vsechna_jmena_form.jmeno }}
+    
+                    <div class="text-end">
+                        <input class="my_bt mt-2" type="submit" value="VYHLEDAT">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <hr class="mt-5">
+</main>
+
+{% endblock %}

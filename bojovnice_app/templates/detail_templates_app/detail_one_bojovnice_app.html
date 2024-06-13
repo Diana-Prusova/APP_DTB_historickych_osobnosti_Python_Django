@@ -1,0 +1,74 @@
+{% extends 'base_bojovnice_app.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+<div class="d-flex justify-content-center">
+<div class="my_max_w">
+
+    <div class="row ">
+        <div class="col fs-3 text-center">
+            {{ object.jmeno }}
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col text-center mb-4">
+            {{ object.popis }}
+        </div>
+    </div>
+
+    {% if object.vsechna_jmena_string %}
+
+        <div class="row mt-2 ">
+            <div class="col-12 col-md-3 fw-bolder">
+                VERZE JMÉNA:
+            </div>
+            <div class="col">
+                {{ object.vedlejsi_jmena_string }}
+            </div>
+        </div>
+
+    {% endif %}
+
+    <div class="row mt-2 ">
+        <div class="col-12 col-md-3 fw-bolder">
+            OBDOBÍ:
+        </div>
+        <div class="col">
+            {{ object.obdobi }}
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-12 col-md-3 fw-bolder">
+            ÚZEMÍ:
+        </div>
+        <div class="col">
+            {{ object.uzemi }} ({{ object.staty_string}})
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12 fw-bolder">
+            PŘÍBĚH:
+        </div>
+        <div class="row mt-2">
+            <p class="">
+            {{ object.pribeh }}
+        </p>
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-center my-2">
+        <div class="col-12 col-md-4 p-2 text-center">
+            <a href="javascript:window.history.back()" class="my_bt">ZPĚT&nbsp;NA&nbsp;SEZNAM</a>
+        </div>
+        <div class="col-12 col-md-4 p-2 text-center">
+            <a href="{% url 'index_bojovnice_app' %}" class="my_bt">ÚVODNÍ&nbsp;STRÁNKA</a>
+        </div>
+    </div>
+    
+</div>
+</div>
+<hr>
+{% endblock %}

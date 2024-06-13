@@ -1,0 +1,28 @@
+{% extends 'base_sprava.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+<div class="d-flex justify-content-center">
+<div class="my_max_w">
+
+    <div class="row mb-3">
+        <div class="col">
+            <p class="fs-3 text-center mb-0"> {{ title_page }} </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <form action="." method="POST"> {% csrf_token %}    
+                {{ form.as_p }}
+
+                <input class="my_bt mt-4 mb-5" type="submit" value="ULOŽIT ZÁZNAM">
+            </form>
+        </div>
+    </div>
+
+</div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base_sprava.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+{% include "detail_templates/header.html" %}
+
+    <div class="row mt-2">
+        <div class="col-4 col-md-2">
+            JMÉNO:
+        </div>
+        <div class="col-8 col-md-10">
+            {{ object.jmeno }}
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-4 col-md-2">
+            ID:
+        </div>
+        <div class="col-8 col-md-10">
+            {{ object.pk }}
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-4 col-md-2">
+            HLAVNÍ JMÉNO:
+        </div>
+        <div class="col-8 col-md-10">
+            {% if object.hlavni_jmeno %}
+                ANO
+            {% else %}
+                NE
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col">
+            BOJOVNICE:
+        </div>
+        <div class="row ms-4">
+            <a class="my_link" href="{{ object.bojovnice.get_absolute_url_detail }}">{{ object.bojovnice.admin_string }}</a>
+        </div>
+    </div>
+
+  
+{% endblock %}

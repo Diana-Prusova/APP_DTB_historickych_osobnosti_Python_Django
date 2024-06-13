@@ -1,0 +1,85 @@
+
+{% extends 'base_sprava.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+
+    <div class="row d-flex justify-content-between mb-1">
+        <div class="col-12 col-sm-8">
+            <p class="fs-3 d-flex align-items-center mb-0">TABULKA {{ tab_name }}</p>
+        </div>
+
+        <div class="col-12 col-sm-4 d-flex justify-content-start justify-content-sm-end">
+            <a class="my_bt d-flex align-items-center px-3" href="{{ url_new_object }}" >PŘIDAT ZÁZNAM</a>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row ">
+        <div class="col fw-bolder">
+            JMÉNO &nbsp;
+            <a href="?order_name={% if request.GET.order_name == 'desc' %}asc{% else %}desc{% endif %}">
+                <i class="bi bi-arrow-down-up" style="color: #000000;"></i>
+            </a>
+        </div>
+
+        <div class="col fw-bolder d-none d-sm-inline">
+            BOJOVNICE &nbsp;
+            <a href="?order_ww={% if request.GET.order_ww == 'asc' %}desc{% else %}asc{% endif %}">
+                <i class="bi bi-arrow-down-up" style="color: #000000;"></i>
+            </a>
+        </div>
+
+        <div class="col-2 fw-bolder text-center">
+            ID &nbsp;
+            <a href="?order_id={% if request.GET.order_id == 'asc' %}desc{% else %}asc{% endif %}">
+                <i class="bi bi-arrow-down-up" style="color: #000000;"></i>
+            </a>
+        </div>
+
+        <div class="col-3 col-sm-1 fw-bolder">
+            AKCE
+        </div>
+    </div>
+
+    {% for each in object_list %}
+        <div class="row mt-2 ">
+            <div class="col ">
+                <a class="my_link" href="{{ each.get_absolute_url_detail }}">{{ each.jmeno }}</a>
+            </div>
+
+            <div class="col d-none d-sm-inline">
+                {{ each.bojovnice }}
+            </div>
+
+            <div class="col-2 text-center">
+                {{ each.id }}
+            </div>
+
+            <div class="col-3 col-sm-1 d-flex justify-content-between">
+                <div class="tlt">
+                    <p class="tlt_border">DETAIL</p>
+                    <a href="{{ each.get_absolute_url_update }}">
+                        <i class="bi bi-pencil-fill" style="color:rgb(6, 189, 112)"></i>
+                    </a>
+                </div>
+
+                <div class="tlt">
+                    <p class="tlt_border">SMAZAT</p>
+                    <a href="{{ each.get_absolute_url_delete }}">
+                        <i class="bi bi-trash-fill" style="color:rgb(189, 6, 6)"></i>
+                    </a>
+                </div>
+            </div> 
+        </div>
+    {% endfor %}
+
+    <hr>
+    
+{% endblock %}
+
+
+
+
+

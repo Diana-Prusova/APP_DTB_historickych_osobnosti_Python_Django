@@ -1,0 +1,56 @@
+
+{% extends 'base_base.html' %}
+
+{% block bootstrap5_title %}AMINISTRACE BOJOVNIC{% endblock %}
+
+{% load bootstrap5 %}
+
+{% block bootstrap5_content %}
+<div class="container-fluid" >
+
+<div class="row" >
+    <div class="col-lg-3 col-xs-12" style="background-color: #008888;">
+        <nav class="navbar navbar-expand-lg navbar-dark flex-lg-column" >
+            <div class="container-fluid">
+                <a class="navbar-brand " href="{% url 'sprava:index-sprava' %}">DTB BOJOVNIC</a>
+                <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'sprava:staty-admin-list' %}">STÁTY</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'sprava:stoleti-admin-list' %}">STOLETÍ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'sprava:bojovnice-admin-list' %}">BOJOVNICE</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'sprava:vsechna-jmena-admin-list' %}">VŠECHNA JMÉNA</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'sprava:skupiny-bojovnic-admin-list' %}">SKUPINY BOJOVNIC</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'index_bojovnice_app' %}">APP BOJOVNICE</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        {% include 'footer_sprava_template.html' %}
+    </div>
+    
+    <div class="col-lg-9 col-xs-12">
+        <div class="my_box p-2">
+            {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+            {% block content %}(no content){% endblock %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
