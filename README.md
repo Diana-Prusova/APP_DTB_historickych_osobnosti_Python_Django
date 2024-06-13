@@ -26,20 +26,23 @@ Aplikace používá několik knihoven třetí stran. Kompletní seznam najdete v
     pip install -r requirements.txt
 ## Ukázka aplikace
 
-UŽIVATELSKÁ ČÁST APLIKACE:
+UŽIVATELSKÁ ČÁST APP - INDEX:
 ![Screenshot index](static/screens/bojovnice_app_index.png)
 
+UŽIVATELSKÁ ČÁST APP - LISTING:
 ![Screenshot listing](static/screens/bojovnice_app_listing.png)
 
+UŽIVATELSKÁ ČÁST APP - DETAIL:
 ![Screenshot detail](static/screens/bojovnice_app_detail.png)
 
-SPRÁVCOVSKÁ ČÁST APLIKACE:
+SPRÁVCOVSKÁ ČÁST APLIKACE - LISTING:
 ![Screenshot sprava_listing](static/screens/sprava_listing.png)
 
+SPRÁVCOVSKÁ ČÁST APLIKACE - DETAIL:
 ![Screenshot sprava_detail](static/screens/sprava_detail.png)
 
-API ROZHRANÍ: 
+API ROZHRANÍ APPP: 
 ![Screenshot api](static/screens/bojovnice_api.png)
 
-DJANGO ADMIN:
+DJANGO ADMIN PRO APP:
 ![Screenshot django_admin](static/screens/admin.png)
