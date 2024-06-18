@@ -218,3 +218,10 @@ select option:checked
     padding: 35px 20px;
     border-radius: 20px;
 }
+
+
+/* ----- LEAFLET ----- */
+#map {
+    height: 400px;
+    width: 100%;
+}

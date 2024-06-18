@@ -7,14 +7,15 @@ Do všech ostatních aplikací jsou tyto modely importovány.
 from django.db import models
 from django.urls import reverse
 from datetime import datetime
-from django.contrib import messages
-from django.core.exceptions import ValidationError
+import random
+from shapely.geometry import Polygon, Point
 
 
 # ==========================================================================
 # TVORBA QUERYSETŮ
 # ==========================================================================
 
+# queryset pro tab BOJOVNICE 
 class BojovniceQuerySet(models.QuerySet):
     def search_by_text(self, text):
         """
@@ -46,6 +47,33 @@ class BojovniceManager(models.Manager):
         return self.get_queryset().sorted_by_stoleti(reverse)
     
 
+# queryset pro M2M tab BOJOVNICESTAT 
+class BojovniceStatQuerySet(models.QuerySet):
+    def get_maps_data(self):
+        """
+        Funkce vrátí slovník s daty pro zobrazení bojovnic na mapě.
+        """
+        data = []
+        for each in self:
+            if each.lat and each.lon:
+                data.append({
+                    'jmeno': each.bojovnice.jmeno,
+                    'detail_url': each.bojovnice.get_absolute_url_bojovnice_app(),
+                    'latitude': each.lat,
+                    'longitude': each.lon,
+                })
+        return data
+    
+
+class BojovniceStatManager(models.Manager):
+    def get_queryset(self):
+        return BojovniceStatQuerySet(self.model, using=self._db)
+    
+    def get_maps_data(self):
+        return self.get_queryset().get_maps_data()
+    
+
+# queryset pro tab SKUPINY BOJOVNIC 
 class SkupinyBojovnicQuerySet(models.QuerySet):
     def sorted_by_stoleti(self, reverse):
         """
@@ -55,7 +83,7 @@ class SkupinyBojovnicQuerySet(models.QuerySet):
         my_query = sorted(self, key=lambda x: x.get_num_for_sort_by_stoleti(), reverse=reverse)
         return my_query
     
-    
+
 class SkupinyBojovnicManager(models.Manager):
     def get_queryset(self):
         return SkupinyBojovnicQuerySet(self.model, using=self._db)
@@ -102,19 +130,44 @@ class Data():
 
 class Staty(models.Model, Data):
     nazev = models.CharField(max_length=50)
+    polygon_text = models.TextField(max_length=500)
 
     class Meta:
         ordering = ('nazev',) # způsob řazen
         verbose_name_plural = 'Státy' # název v django adminu (smaže 's' na konci)
 
-    def __str__(self):
-        """Zobrazení pro rolovací menu."""
-        return f"{self.nazev}"
-    
     @property
     def admin_string(self):
         """Zobrazení pro administraci."""
         return f"{self.nazev} (ID: {self.pk})"
+
+    def __str__(self):
+        """Zobrazení pro rolovací menu."""
+        return f"{self.nazev}"
+    
+    def get_random_point(self):
+        """
+        Funkce vezme parametr polygon_text a vytvoří z něj polygon. Následně
+        vygeneruje náhodný bod, který se nachází uvnitř polygonu. Pokud již byl
+        bod použit, vygeneruje se nový. Souřadnice bodu se vrátí jako tuple.
+        """
+        # Vytvoření poligonu ze stringu
+        cleaned_data = []
+        data = self.polygon_text.strip().split('\r\n')
+        for each in data:
+            cleaned_data.append(tuple(map(float, each.strip().split(','))))
+        polygon = Polygon(cleaned_data)
+
+        # Získání souřadnic z polygonu
+        min_x, min_y, max_x, max_y = polygon.bounds
+        while True:
+            random_point = Point([random.uniform(min_x, max_x), random.uniform(min_y, max_y)])
+            # Kontrola, zda se bod nachází uvnitř polygonu
+            if random_point.within(polygon):
+                data = random_point.x, random_point.y
+                # Kontrola, zda se souřadnice již nevyskytují v tabulce
+                if not BojovniceStat.objects.filter(lat=data[0], lon=data[1]).exists():
+                    return data
     
     def get_data(self):
         """Kompletní výpis informací včetně napojených objektů."""
@@ -161,15 +214,15 @@ class Stoleti(models.Model, Data):
 
     class Meta:
         verbose_name_plural = 'Století' # název v django adminu
-
-    def __str__(self):
-        """Zobrazení pro rolovací menu."""
-        return f"{self.nazev}"
     
     @property
     def admin_string(self):
         """Zobrazení pro administraci."""
         return f"{self.nazev} (ID: {self.pk})"
+    
+    def __str__(self):
+        """Zobrazení pro rolovací menu."""
+        return f"{self.nazev}"
     
     def get_data(self):
         """Kompletní výpis informací o instanci včetně napojených objektů."""
@@ -216,7 +269,7 @@ class Bojovnice(models.Model, Data):
     uzemi = models.CharField(max_length=50) 
     popis = models.TextField(max_length=100) 
     pribeh = models.TextField(max_length=2000)
-    stat = models.ManyToManyField(Staty)
+    stat = models.ManyToManyField(Staty, through='BojovniceStat')
     stoleti = models.ManyToManyField(Stoleti)
 
     objects = BojovniceManager() # vlastní manager
@@ -225,10 +278,6 @@ class Bojovnice(models.Model, Data):
         ordering = ('jmeno',) # způsob řazení
         verbose_name_plural = 'Bojovnice' # název v django adminu
 
-    def __str__(self):
-        """Zobrazení pro rolovací menu."""
-        return f"{self.jmeno} | {self.uzemi}"
-    
     @property
     def admin_string(self):
         """Zobrazení pro administraci."""
@@ -278,6 +327,10 @@ class Bojovnice(models.Model, Data):
             return ', '.join(jmena)
         else:
             return False
+        
+    def __str__(self):
+        """Zobrazení pro rolovací menu."""
+        return f"{self.jmeno} | {self.uzemi}"
 
     def save(self, *args, **kwargs):
         """
@@ -289,6 +342,11 @@ class Bojovnice(models.Model, Data):
         super().save(*args, **kwargs)
         if new_instance:
             VsechnaJmena.objects.create(jmeno=self.jmeno, bojovnice=self, hlavni_jmeno=True)
+
+        for stat in self.stat.all():
+            bojovnice_stat, created = BojovniceStat.objects.get_or_create(bojovnice=self, stat=stat)
+            if created:
+                bojovnice_stat.save()
         
     def get_data(self):
         """Kompletní výpis informací o instanci."""
@@ -322,6 +380,36 @@ class Bojovnice(models.Model, Data):
         """Slouží k rozlišení modelů v template listing pro bojovnice APP """
         return True
     
+
+class BojovniceStat(models.Model):
+    """
+    Propojovací tabulka mezi Bojovnicemi a Státy. Vyjma Bojovnice a Stát
+    obsahuje také souřadnice pro zobrazení na mapě. Tyto souřadnice jsou 
+    vygenerovány náhodně v rámci polygonu daného státu pomocí 
+    metody get_random_point() (metoda modelu Stát).
+    """
+    bojovnice = models.ForeignKey(Bojovnice, on_delete=models.CASCADE)
+    stat = models.ForeignKey(Staty, on_delete=models.CASCADE)
+    lat = models.FloatField(null=True, blank=True)
+    lon = models.FloatField(null=True, blank=True)
+
+    objects = BojovniceStatManager() # vlastní manager
+
+    class Meta:
+        ordering = ('bojovnice', 'stat',)
+        verbose_name_plural = 'BojovniceStaty M2M-tab'
+
+    def __init__(self, *args, **kwargs):
+        """
+        Při vytvoření instance se automaticky vygenerují souřadnice.
+        """
+        super().__init__(*args, **kwargs)
+        if not self.lat and not self.lon:
+            self.lat, self.lon = self.stat.get_random_point()
+
+    def __str__(self):
+        return f"{self.bojovnice.jmeno} - {self.stat.nazev} | LAT: {self.lat}, LON: {self.lon}"
+
     
 class VsechnaJmena(models.Model):
     jmeno = models.CharField(max_length=50)

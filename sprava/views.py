@@ -267,7 +267,7 @@ class StatyAdminDetailView(LoginRequiredMixin, DetailView):
     View pro zobrazení detailu státu v sekci správa.
     """
     model = models.Staty
-    template_name = 'detail_templates/stat_stoleti_detail_sprava.html'
+    template_name = 'detail_templates/stat_detail_sprava.html'
     extra_context = {'title_page': 'STÁT - detail'}
 
     def dispatch(self, *args, **kwargs):
@@ -286,7 +286,7 @@ class StoletiAdminDetailView(LoginRequiredMixin, DetailView):
     View pro zobrazení detailu století v sekci správa.
     """
     model = models.Stoleti
-    template_name = 'detail_templates/stat_stoleti_detail_sprava.html'
+    template_name = 'detail_templates/stoleti_detail_sprava.html'
     extra_context = {'title_page': 'STOLETÍ - detail'}
 
     def dispatch(self, *args, **kwargs):

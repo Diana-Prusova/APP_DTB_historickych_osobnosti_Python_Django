@@ -37,6 +37,7 @@ class BojovniceAppIndexView(TemplateView):
     search_by_stoleti_form = forms.SearchByStoletiForm()
     search_by_vsechna_jmena_form = forms.SeachByVsechnaJmenaForm()
 
+
     def dispatch(self, *args, **kwargs):
         print('! SPOUŠTÍ SE VIEW: IndexBojovniceAppView')
         return super().dispatch(*args, **kwargs)
@@ -47,6 +48,7 @@ class BojovniceAppIndexView(TemplateView):
         context['search_by_stat_form'] = self.search_by_stat_form
         context['search_by_stoleti_form'] = self.search_by_stoleti_form
         context['search_by_vsechna_jmena_form'] = self.search_by_vsechna_jmena_form
+        context['data'] = models.BojovniceStat.objects.all().get_maps_data()
         return context
     
     def post(self, request, *args, **kwargs):
@@ -58,7 +60,7 @@ class BojovniceAppIndexView(TemplateView):
             data = models.Stoleti.objects.get(pk=request.POST['stoleti']).get_all_connect_obj()
         elif 'jmeno' in request.POST:
             bojovnice = models.Bojovnice.objects.search_by_text(request.POST['jmeno'])
-            skupiny_bojovnic = models.SkupinyBojovnic.objects.filter(nazev__icontains=request.POST['jmeno'])
+            skupiny_bojovnic = models.SkupinyBojovnic.objects.filter(jmeno__icontains=request.POST['jmeno'])
             data = list(bojovnice) + list(skupiny_bojovnic)
         else:
             return render(
@@ -68,9 +70,8 @@ class BojovniceAppIndexView(TemplateView):
 
         return render(
             request,
-            template_name='listing_bojovnice_app.html',
+            template_name='listing_search_bojovnice_app.html',
             context={
-                'title_page': 'NALEZENÉ BOJOVNICE',
                 'object_list': data
             })
 

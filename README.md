@@ -1,7 +1,7 @@
 
 # Databáze bojovnic v historii světa
 
-Tato aplikace slouží k vytvoření, editaci a zveřejnění databáze historických osobností. Je rozdělena do čtyř částí. 
+Tato aplikace slouží k vytvoření a editaci databáze bojovnic v historii včetně vizualizace databáze na mapě světa. App je rozdělena do čtyř částí: 
 
 1. bojovnice_app - uživatelské část aplikace: tato část slouží k prohlížení hlavních dat databáze. Je možné zobrazit kompletní seznamy či data filtrovat.
 

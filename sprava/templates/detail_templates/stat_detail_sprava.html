@@ -1,0 +1,82 @@
+{% extends 'base_sprava.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+{% include "detail_templates/header.html" %}
+
+    <div class="row mt-2">
+        <div class="col-4 col-md-1">
+            ID:
+        </div>
+        <div class="col-8 col-md-11">
+            {{ object.pk }}
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-4 col-md-1">
+            NÁZEV:
+        </div>
+        <div class="col-8 col-md-11">
+            {{ object.nazev }}
+        </div>
+    </div>
+    
+    <div class="row mt-2">
+        <div class="col">
+            POLYGON_TEXT:
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col ms-4">
+            {{ object.polygon_text }}
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col">
+            PŘIŘAZENÉ BOJOVNICE:
+        </div>
+    </div>
+
+    {% if object.bojovnice_set.count == 0 %}
+        <div class="row fw-lighter mt-2 ms-4">
+            - Ke státu nejsou přiřazeny žádné bojovnice.
+        </div>
+    {% else %}
+        {% for each in object.bojovnice_set.all %}
+            <div class="row fw-lighter mt-2">
+                <div class="col ms-4">
+                    <a class="my_link" href="{% url 'sprava:bojovnice-admin-detail' each.pk %}">{{ each.admin_string }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <br>
+
+    <div class="row">
+        <div class="col">
+            PŘIŘAZENÉ SKUPINY BOJOVNIC:
+        </div>
+    </div>
+
+    {% if object.skupinybojovnic_set.count == 0 %}
+        <div class="row fw-lighter mt-2 ms-4">
+            - Ke státu nejsou přiřazeny žádné skupiny bojovnic.
+        </div>
+    {% else %}
+        {% for each in object.skupinybojovnic_set.all %}
+            <div class="row fw-lighter mt-2">
+                <div class="col ms-4">
+                    <a class="my_link" class="link-underline-light" href="{% url 'sprava:skupiny-bojovnic-admin-detail' each.pk %}">{{ each.admin_string }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+  
+{% endblock %}

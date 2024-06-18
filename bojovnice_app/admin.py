@@ -33,6 +33,11 @@ class BojovniceAdmin(admin.ModelAdmin):
     def get_stoleti(self, obj):
         return ', '.join([each.nazev for each in obj.stoleti.all()])
 
+
+@admin.register(models.BojovniceStat)
+class BojovniceStatAdmin(admin.ModelAdmin):
+    list_display = ('id', 'bojovnice', 'stat', 'lat', 'lon')
+    pass
     
 @admin.register(models.VsechnaJmena)
 class VsechnaJmenaAdmin(admin.ModelAdmin):

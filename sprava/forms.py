@@ -13,16 +13,25 @@ from bojovnice_app import models
 class StatyAdminForm(forms.ModelForm):
     class Meta:
         model = models.Staty
-        fields = '__all__'
+        fields = ('nazev', 'polygon_text')
         labels = {
             'nazev': 'Název státu',
+            'polygon_text': 'Polygon'
         }
         widgets = {
             'nazev': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Dnešní název státu...'
                 }),
+            'polygon_text': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 5,
+                'placeholder': 'Zadejte souřadnice'
+                }),
          }
+        help_texts = {
+            'polygon_text': '<a href="http://apps.headwallphotonics.com/" target="_blank">Zde</a> vytvořte polygon se <strong>čtyřmi páry souřadnic</strong> a zkopírujte souřadnice do tohoto pole. Souřadnice zkopírujte všechny najednou a vložte je jak jsou, tento formát je důležitý.'
+        }
 
     def clean(self):
         """ Funkce pro validaci formuláře upravena tak, aby kontrolovala duplicitu."""

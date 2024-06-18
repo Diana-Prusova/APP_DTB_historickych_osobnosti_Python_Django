@@ -2,19 +2,17 @@
 {% load bootstrap5 %}
 {% load static %}
 
-
 {% block content %}
 
 <header>
-    
+    <!-- LOGO -->
     <div class="row my-5">
         <div class="col-12 text-center">
             <img class="my_logo_index" src="{% static 'bojovnice_v_historii/img/bojovnice_v_historii_logo.jpg' %}" alt="Bojovnice v historii světa">
         </div>
     </div>
 
-    <!-- <hr class="mb-5"> -->
-    
+    <!-- BUT ZOBRAZENÍ SEZNAMŮ -->
     <div class="row d-flex justify-content-between mb-5">
         <div class="col-12 col-sm-6 text-center text-sm-end p-3">
             <a class="my_bt my_bt_header"  href="{% url 'listing_bojovnice_app' %}">SEZNAM&nbsp;BOJOVNIC</a>
@@ -24,31 +22,39 @@
             <a class="my_bt my_bt_header" href="{% url 'listing_skupiny_app' %}">SKUPINY&nbsp;BOJOVNIC</a>
         </div>  
     </div>
+
 </header>
 
 <main>
 
+    <!-- MAPA -->
+    <div class="row d-flex justify-content-center mt-5">
+        <div id="map" ></div>
+    </div>
+
     <hr>
 
+    <!-- VYHLEDÁVACÍ POLE -->
     <div class="row">
-        <div class="col text-center fs-2 my-4">
+        <div class="col text-center fs-2 mt-4">
             <p class="my_color_text">VYHLEDÁVÁNÍ:</p>
         </div>
     </div>
     
-    <div class="row mb-2">
+    <div class="row">
+        <!-- HLEDAT PODLE STÁTU -->
         <div class="col-12 col-md-4 p-2">
             <div class="search_box">
                 <form action="." method="POST">
                     {% csrf_token %}
-    
-                    <label for="id_stat_nazev">
+                    
+                    <label for="id_stoleti_nazev">
                         <div class="my_color_text my_form_title mb-2">
-                                {{ search_by_stat_form.stat.label}}
+                            {{ search_by_stat_form.stat.label }}
                         </div>
                     </label>
     
-                    {{ search_by_stat_form.stat}}
+                    {{ search_by_stat_form.stat }}
     
                     <div class="text-end">
                         <input class="my_bt mt-2" type="submit" value="VYHLEDAT">
@@ -56,7 +62,8 @@
                 </form>
             </div>
         </div>
-    
+        
+        <!-- HLEDAT PODLE STOLETÍ -->
         <div class="col-12 col-md-4 p-2">
             <div class="search_box">
                 <form action="." method="POST">
@@ -77,6 +84,7 @@
             </div>
         </div>
     
+        <!-- HLEDAT PODLE VŠECHNÝCH JMEN -->
         <div class="col-12 col-md-4 p-2">
             <div class="search_box">
                 <form action="." method="POST">
@@ -96,8 +104,12 @@
             </div>
         </div>
     </div>
-    
-    <hr class="mt-5">
-</main>
 
+    <hr class="mt-5">
+
+    <!-- převedení dat do JSON -->
+    {{ data|json_script:"data_json" }}
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</main>
 {% endblock %}

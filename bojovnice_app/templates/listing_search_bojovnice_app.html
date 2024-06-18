@@ -1,0 +1,74 @@
+
+{% extends 'base_bojovnice_app.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+<div class="row  mb-1">
+    <div class="col-12 col-md-8 d-flex justify-content-center justify-content-md-start">
+        <p class="fs-3 d-flex align-items-center mb-0 my_text_center">NALEZENÉ VÝSLEDKY</p>
+    </div>
+
+    <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-end">
+        <a class="my_bt d-flex align-items-center px-3" href="{% url 'index_bojovnice_app' %}" >ZPĚT&nbsp;NA&nbsp;VYHLEDÁVÁNÍ</a>
+    </div>
+</div>
+
+    <hr>
+
+    <div class="row fw-bolder d-flex justify-content-between">
+        <div class="col">
+            JMÉNO             
+        </div>
+
+        <div class="col d-none d-lg-inline">
+            STOLETÍ 
+        </div>
+
+        <div class="col-2 d-none d-sm-inline col-sm-2 text-center">
+            DETAIL
+        </div>
+    </div>
+
+    {% if object_list %}
+        {% for each in object_list %}
+            <div class="row mt-2 d-flex justify-content-between">
+                {% if each.is_bojovnice %}
+                    <div class="col">
+                        <i class="bi bi-person-fill" style="color: #008888; font-size: 16px;"></i>
+                        &nbsp;
+                        <a class="my_link" href="{{ each.get_absolute_url_bojovnice_app }}">{{ each.jmeno }}</a>
+                    </div>
+                {% else %}
+                <div class="col">
+                    <i class="bi bi-people-fill" style="color: #008888; font-size: 16px;"></i>
+                    &nbsp;
+                    <a class="my_link" href="{{ each.get_absolute_url_bojovnice_app }}">{{ each.jmeno }}</a>
+                </div>
+                {% endif %}
+
+                <div class="col d-none d-lg-inline">
+                    {{ each.stoleti_string }}
+                </div>
+
+                <div class="col-2 d-none d-sm-inline col-sm-2 text-center">
+                    <a href="{{ each.get_absolute_url_bojovnice_app }}">
+                        <i class="bi bi-info-circle" style="color:#008888; font-size: 18px;"></i>
+                    </a>
+                </div> 
+        
+            </div>
+        {% endfor %}
+    {% else %}
+        <div >
+            Nebyly nalezeny žádné bojovnice.
+        </div>
+    {% endif %}
+
+    <hr class="mt-3">
+
+{% endblock %}
+
+
+
+
+
