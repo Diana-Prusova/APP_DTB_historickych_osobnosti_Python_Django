@@ -37,7 +37,9 @@ class BojovniceAdmin(admin.ModelAdmin):
 @admin.register(models.BojovniceStat)
 class BojovniceStatAdmin(admin.ModelAdmin):
     list_display = ('id', 'bojovnice', 'stat', 'lat', 'lon')
-    pass
+    fields = ('lat', 'lon')
+    search_fields = ('bojovnice__jmeno', 'stat__nazev')
+    list_filter = ('stat',)
     
 @admin.register(models.VsechnaJmena)
 class VsechnaJmenaAdmin(admin.ModelAdmin):
